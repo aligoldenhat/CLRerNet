@@ -42,10 +42,13 @@ RUN mim install mmengine==${MMENGINE_VERSION}
 RUN mim install mmdet==${MMDET_VERSION}
 
 # requirements
-RUN pip install -U pip setuptools
+# RUN pip install -U pip setuptools
+RUN pip install -U pip wheel
+RUN pip install "setuptools<70.0"
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 RUN pip install "numpy<2.0"
+RUN pip install onnx onnxsim
 
 # lane NMS
 COPY --chown=docker libs/models/layers/nms /tmp/nms
